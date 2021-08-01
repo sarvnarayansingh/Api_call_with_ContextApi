@@ -1,15 +1,17 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
 import {MyContext} from './MyContext'
+import {userTypes} from './Reducer'
 
 function Login  (props) {
-    const { authState, authActions } = useContext(MyContext);
+  const [authState, dispatch] = useContext(MyContext);
+  const [name] =useState("virat")
 
     const login = () => {
-      authActions.authStateChanged({name: "Burhanuddin" });
+      dispatch(userTypes(name));
     }
     return (
       <div>
-          {authState.user?.name}
+          {authState.user}
         <button onClick={() => login()}>
           Login
         </button>
