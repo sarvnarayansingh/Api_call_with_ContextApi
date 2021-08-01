@@ -1,20 +1,25 @@
 import React,{useContext,useState} from 'react'
 import {MyContext} from './MyContext'
-import {userTypes} from './Reducer'
-import {userall} from './Reducer'
+import * as actionTypes from '../Redux/Action/ActionTypes'
+import axios from 'axios'
+
 
 function Login  (props) {
   const [authState, dispatch] = useContext(MyContext);
-  const [name] =useState("virat")
+
   const [allname] =useState("kohali")
 
     const login = () => {
-      dispatch(userTypes(name));
-      dispatch(userall(allname));
+      axios.get('https://jsonplaceholder.typicode.com/users')
+    .then(function (response) {
+    dispatch(actionTypes.actionTypes(response));
+  })
+      
+      dispatch(actionTypes.userall(allname));
     }
+    console.log("authState",authState)
     return (
       <div>
-          {authState.user}
         <button onClick={() => login()}>
           Login
         </button>
